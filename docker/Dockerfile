@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/playwright
 WORKDIR /app
-RUN pip install --upgrade pip
-RUN pip install playwright
-#RUN pip install -r requirements.txt
+COPY requirements.txt /
+USER pwuser
+ENV PATH="/home/pwuser/.local/bin:${PATH}"
+RUN python3 -m pip install --user --upgrade pip
+RUN python3 -m pip install --user -r /requirements.txt
 CMD python init.py
